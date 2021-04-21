@@ -33,7 +33,7 @@ This project was developed using cutting edge front-end technologies.
 **Clone the project and access the folder**
 
 ```bash
-$ git clone https://github.com/mts-almeida/NLW-5-Trilha-ReactJS.git && cd podcastr
+$ git clone https://github.com/mts-almeida/NLW-5-Trilha-ReactJS.git && cd NLW-5-Trilha-ReactJS
 ```
 
 **Follow the steps below**
@@ -42,8 +42,11 @@ $ git clone https://github.com/mts-almeida/NLW-5-Trilha-ReactJS.git && cd podcas
 # Install the dependencies
 $ yarn
 
-# Run the web server
+# Starts Next.js in development mode
 $ yarn dev
+
+# Run the web server
+$ yarn server
 ```
 
 The app will be available for access on your browser at `http://localhost:3000`
