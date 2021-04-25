@@ -7,6 +7,9 @@ import Link from 'next/link'
 import {convertDurationToTimeString} from "../../utils/convertDurationToTimeString";
 
 import styles from './episode.module.scss'
+import {useContext} from "react";
+import {PlayerContext, usePlayer} from "../../contexts/PlayerContext";
+import Head from "next/head";
 
 type Episode = {
     id: string;
@@ -24,18 +27,22 @@ type EpisodeProps = {
     episode: Episode
 }
 
-export default function Episode({episode}: EpisodeProps){
+export default function Episode({episode}: EpisodeProps) {
+    const {play} = usePlayer()
 
     return (
         <div className={styles.episode}>
+            <Head>
+                <title>{episode.title}</title>
+            </Head>
             <div className={styles.thumbnailContainer}>
                 <Link href={"/"}>
                     <button type={"button"}>
-                        <img src={"/arrow-left.svg"} alt={"Voltar"} />
+                        <img src={"/arrow-left.svg"} alt={"Voltar"}/>
                     </button>
                 </Link>
                 <Image src={episode.thumbnail} width={700} height={160} objectFit={"cover"}/>
-                <button type={"button"}>
+                <button type={"button"} onClick={() => play(episode)}>
                     <img src={"/play.svg"} alt={"Tocar episódio"}/>
                 </button>
             </div>
@@ -54,18 +61,18 @@ export default function Episode({episode}: EpisodeProps){
     )
 }
 
-export const getStaticPaths: GetStaticPaths = async () =>{
+export const getStaticPaths: GetStaticPaths = async () => {
     const {data} = await api.get('episodes?', {
-        params:{
+        params: {
             _limit: 2,
             _sort: 'published_at',
             _order: 'desc',
         }
     })
 
-    const paths = data.map(episode =>{
+    const paths = data.map(episode => {
         return {
-            params:{
+            params: {
                 slug: episode.id
             }
         }
@@ -86,17 +93,17 @@ export const getStaticProps: GetStaticProps = async (ctx) => {
         title: data.title,
         thumbnail: data.thumbnail,
         members: data.members,
-        publishedAt: format(parseISO(data.published_at), 'd MMM yy', { locale: ptBR }),
+        publishedAt: format(parseISO(data.published_at), 'd MMM yy', {locale: ptBR}),
         duration: Number(data.file.duration),
         durationsAsString: convertDurationToTimeString(Number(data.file.duration)),
         description: data.description,
         url: data.file.url,
     }
 
-    return{
+    return {
         props: {
             episode
         },
-        revalidate: 60* 60* 24 // 24h
+        revalidate: 60 * 60 * 24 // 24h
     }
 }
