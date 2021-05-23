@@ -8,7 +8,7 @@
   Podcastr is a platform built for podcast broadcasting. It was develop during the nextlevelweek [NLW#5] event from Rocketseat
 </h4>
 <h4 align="center">
-    url: <a href="https://mts-podcastr-kiqiymubs-mts-almeida.vercel.app/">https://mts-podcastr-kiqiymubs-mts-almeida.vercel.app/</a>
+    url: <a href="https://mts-podcastr.vercel.app">https://mts-podcastr.vercel.app</a>
 </h4>
 
 ![Podcastr preview](.github/app-preview.png)
